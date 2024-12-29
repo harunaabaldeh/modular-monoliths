@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,7 @@ namespace RiverBooks.Books;
 
 public static class BookServiceExtensions
 {
-    public static void AddBookService(this WebApplicationBuilder builder)
+    public static void AddBookService(this WebApplicationBuilder builder, List<Assembly> mediatRAssemblies)
     {
         Console.WriteLine("=============AddBookService============");
         var connectionString = builder.Configuration.GetConnectionString("BooksConnectionString");
@@ -21,5 +22,8 @@ public static class BookServiceExtensions
         
         builder.Services.AddScoped<IBookRepository, EfBookRepository>();
         builder.Services.AddScoped<IBookService, BookService>();
+        
+        // if this assembly is using mediator
+        mediatRAssemblies.Add(typeof(BookServiceExtensions).Assembly);
     }
 }

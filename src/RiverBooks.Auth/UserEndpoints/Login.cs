@@ -1,7 +1,6 @@
 using FastEndpoints;
 using FastEndpoints.Security;
 using Microsoft.AspNetCore.Identity;
-using RiverBooks.User;
 
 namespace RiverBooks.Auth.UserEndpoints;
 

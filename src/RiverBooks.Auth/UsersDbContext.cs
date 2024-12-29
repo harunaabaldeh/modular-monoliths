@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RiverBooks.User;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace RiverBooks.Auth;
 
@@ -23,5 +23,14 @@ public class UsersDbContext : IdentityDbContext
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.Properties<decimal>().HavePrecision(18, 6);
+    }
+}
+
+internal class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
+{
+    public void Configure(EntityTypeBuilder<CartItem> builder)
+    {
+        builder.Property(item => item.Id)
+            .ValueGeneratedOnAdd();
     }
 }
